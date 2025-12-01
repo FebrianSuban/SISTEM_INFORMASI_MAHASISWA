@@ -1,59 +1,202 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Informasi Mahasiswa
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Dokumentasi lengkap untuk menjalankan, mengembangkan, dan men-deploy aplikasi "Sistem Informasi Biodata Mahasiswa".
 
-## About Laravel
+Ringkasan singkat
+- Framework: Laravel (PHP)
+- Frontend: Blade + Tailwind CSS
+- DB: MySQL (dijalankan di XAMPP pada lingkungan pengembangan lokal)
+- Fitur utama: manajemen data mahasiswa (CRUD), halaman publik dengan live-search, dashboard admin, cetak biodata (print/PDF-ready)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Daftar isi
+- Persyaratan
+- Instalasi (Lokal dengan XAMPP)
+- Konfigurasi .env
+- Migrasi dan seeder
+- Menjalankan aplikasi
+- Bagaimana menggunakan (user/admin)
+- Fitur cetak (print)
+- Pengaturan tampilan & tema
+- Pengembangan: assets, testing
+- Troubleshooting umum
+- Keamanan & catatan produksi
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Persyaratan
+Pastikan sistem development Anda memiliki:
+- PHP >= 8.x (cek `composer.json` untuk versi minimum yang dibutuhkan oleh project)
+- Composer
+- Node.js + npm
+- MySQL (XAMPP menyediakan MySQL/MariaDB)
+- Git (opsional)
 
-## Learning Laravel
+Di Windows/XAMPP: gunakan `xampp` untuk MySQL dan `php` yang disediakan (atau jalankan PHP dari path sistem Anda).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalasi (Lokal)
+Petunjuk ini diasumsikan Anda berada di folder `c:\xampp\htdocs`.
 
-## Laravel Sponsors
+1. Clone repository (jika belum):
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```powershell
+cd c:\xampp\htdocs
+git clone <repo-url> biodata-mahasiswa
+cd biodata-mahasiswa
+```
 
-### Premium Partners
+2. Install dependensi PHP menggunakan Composer:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```powershell
+composer install
+```
 
-## Contributing
+3. Install dependensi Node.js dan build asset (development):
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```powershell
+npm install
+npm run dev
+```
 
-## Code of Conduct
+> Jika menggunakan Vite (project ini punya `vite.config.js`), `npm run dev` akan menjalankan vite dev server.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. Salin file lingkungan dan generate APP_KEY:
 
-## Security Vulnerabilities
+```powershell
+copy .env.example .env
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. Konfigurasi database pada `.env` (contoh untuk XAMPP/MySQL):
 
-## License
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=biodata_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Buat database `biodata_db` lewat phpMyAdmin atau CLI.
+
+6. Jalankan migration dan seeder (opsional: jalankan seeder admin):
+
+```powershell
+php artisan migrate
+php artisan db:seed
+```
+
+Seeder `DatabaseSeeder` / `AdminSeeder` sudah ada untuk membuat user admin default (cek isi seeder untuk kredensial). Jika Anda hanya ingin menjalankan AdminSeeder:
+
+```powershell
+php artisan db:seed --class=AdminSeeder
+```
+
+7. Buat symlink storage agar dapat menampilkan foto yang diupload:
+
+```powershell
+php artisan storage:link
+```
+
+> Pada Windows, pastikan command ini dijalankan dengan hak akses yang sesuai.
+
+---
+
+## Menjalankan Aplikasi
+Untuk development cepat gunakan built-in server:
+
+```powershell
+php artisan serve
+```
+
+Lalu buka `http://127.0.0.1:8000`.
+
+Jika ingin menggunakan XAMPP/Apache, Anda bisa set virtual host pointing ke `c:\xampp\htdocs\biodata-mahasiswa\public`.
+
+---
+
+## Fitur & Cara Pakai
+- Halaman publik: `GET /` — menampilkan daftar mahasiswa dengan live-search.
+- Halaman detail publik: `GET /mahasiswa/{mahasiswa}` — melihat biodata publik. Terdapat tombol Print di kanan atas untuk mencetak biodata.
+- Autentikasi: Login (admin) menggunakan route yang disediakan oleh package auth (cek `routes/auth.php`).
+- Dashboard admin: `GET /admin/dashboard` — menampilkan ringkasan dan tabel mahasiswa terbaru.
+- Manajemen mahasiswa (CRUD): `GET /admin/mahasiswa` dan route resource untuk create/edit/delete.
+
+Cetak biodata
+- Admin print: `GET /admin/mahasiswa/{mahasiswa}/print` — print-friendly (juga dapat menambahkan `?autoprint=1` untuk memicu dialog print otomatis saat membuka di tab baru).
+- Public print: `GET /mahasiswa/{mahasiswa}/print` — versi publik untuk dicetak, sama mendukung `?autoprint=1`.
+
+---
+
+## Pengaturan Tampilan / Branding
+- Logo header: `resources/views/layouts/public.blade.php` dan `resources/views/layouts/admin.blade.php` memuat `images/642.jpg` sebagai logo; ganti file pada `public/images/642.jpg` atau ubah tag `img` di Blade untuk menunjuk lokasi lain.
+- Warna tema utama: menggunakan `#2b0b5a` (ungu gelap) — lihat CSS inline di beberapa layout untuk menyesuaikan.
+- Photo crop/face-focus: Gambar kartu menggunakan CSS `object-position: center 30%` untuk memfokuskan wajah bagian atas. Untuk akurasi sempurna gunakan face-detection saat upload (opsional).
+
+---
+
+## Pengembangan & Assets
+- Development assets: `npm run dev` (Vite) — live reload untuk CSS/JS.
+- Build production: `npm run build` menghasilkan asset di `public/build` (sesuai konfigurasi Vite).
+
+Jika menambahkan package frontend baru, jalankan `npm install` lalu build ulang.
+
+---
+
+## Testing
+Project berisi folder `tests/`.
+
+Jalankan unit/feature tests:
+
+```powershell
+./vendor/bin/phpunit
+# atau di Windows
+vendor\\bin\\phpunit.bat
+```
+
+---
+
+## Deployment (Produksi) — ringkasan cepat
+- Gunakan PHP-FPM + Nginx atau Apache pada server produksi.
+- Pastikan `APP_ENV=production` dan `APP_DEBUG=false` pada `.env`.
+- Jalankan migration & seeder.
+- Jalankan `php artisan config:cache`, `php artisan route:cache`, `php artisan view:cache`.
+- Build assets: `npm run build` dan pastikan `public/build/*` tersedia.
+- Set file permission yang tepat: direktori `storage/` dan `bootstrap/cache` harus dapat ditulis oleh user web server.
+
+---
+
+## Troubleshooting Umum
+- 500 / white screen: cek `storage/logs/laravel.log`.
+- Error database: cek `.env` DB_* dan pastikan database dibuat.
+- Foto tidak tampil: jalankan `php artisan storage:link` dan pastikan file disimpan di disk `public`.
+- Permission error di Windows: jalankan terminal sebagai Administrator jika perlu (hati-hati dengan hak akses).
+
+---
+
+## Catatan Keamanan & Rekomendasi
+- Validasi input pada controller: sudah ditambahkan batas panjang dan tipe file untuk upload foto.
+- Live-search: query menggunakan Eloquent binding — bukan raw SQL — namun batasi input panjang dan pertimbangkan rate-limit (`throttle`) bila terbuka ke publik.
+- Untuk produksi, gunakan HTTPS dan set `SESSION_SECURE_COOKIE=true` dan pengaturan mail untuk reset password.
+- Jika ingin menampilkan foto secara aman, pertimbangkan validasi dan scanning (virus/malware) di upload pipeline.
+
+---
+
+## Fitur Tambahan yang Bisa Ditambahkan
+- PDF export server-side (pakai `barryvdh/laravel-dompdf` atau `wkhtmltopdf` via snappy) — berguna untuk unduhan biodata yang konsisten.
+- Face detection saat upload untuk crop otomatis (meningkatkan tampilan thumbnail).
+- Search indexing (Laravel Scout + Meilisearch) untuk kinerja pencarian lebih baik di dataset besar.
+- Role & permission management (mis. `spatie/laravel-permission`) jika ingin granularitas hak akses lebih kompleks.
+
+---
+
+## Kontak / Referensi
+- Struktur proyek utama: lihat folder `resources/views` (Blade), `app/Http/Controllers`, `routes/web.php`, `database/migrations`, `database/seeders`.
+- Jika butuh bantuan saya dapat bantu: menambahkan PDF export, face-detection, atau mengoptimalkan pagination dan search.
+
+---
+
+Terima kasih — semoga README ini membantu Anda men-setup dan menjalankan aplikasi. Jika Anda ingin, saya bisa menambahkan skrip otomatis (PowerShell) untuk cepat setup di Windows/XAMPP.
+

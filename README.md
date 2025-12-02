@@ -1,4 +1,7 @@
-# Sistem Informasi Mahasiswa
+# TUGAS SOFTWARE QUALITY ASSURANCE
+# SISTEM INFORMASI MAHASISWA INSTITUT DIGITAL EKONOMI LPKIA
+
+#Demo Aplikasi
 
 Dokumentasi lengkap untuk menjalankan, mengembangkan, dan men-deploy aplikasi "Sistem Informasi Biodata Mahasiswa".
 

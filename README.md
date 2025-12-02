@@ -4,7 +4,7 @@
 #Dokumentasi lengkap untuk menjalankan, mengembangkan, dan men-deploy aplikasi "Sistem Informasi Biodata Mahasiswa".
 
 ## 🎥 Demo Aplikasi
-![Demo Aplikasi](DemoAplikasi.gif)
+![Demo Aplikasi](Demo Aplikasi.gif)
 
 Ringkasan singkat
 - Framework: Laravel (PHP)

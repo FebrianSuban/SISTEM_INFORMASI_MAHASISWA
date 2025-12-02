@@ -1,8 +1,6 @@
 # TUGAS SOFTWARE QUALITY ASSURANCE
 # SISTEM INFORMASI MAHASISWA INSTITUT DIGITAL EKONOMI LPKIA
 
-#Demo Aplikasi
-Demo Aplikasi.gif
 #Dokumentasi lengkap untuk menjalankan, mengembangkan, dan men-deploy aplikasi "Sistem Informasi Biodata Mahasiswa".
 
 Ringkasan singkat

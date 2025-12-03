@@ -7,6 +7,9 @@
 ## 🎥 Demo Aplikasi
 ![Demo Aplikasi](Demo.gif)
 
+##Link Aplikasi
+https://sisteminformasimahasiswalpkia.rf.gd/
+
 Ringkasan singkat
 - Framework: Laravel (PHP)
 - Frontend: Blade + Tailwind CSS

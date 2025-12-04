@@ -26,7 +26,7 @@ class MahasiswaController extends Controller
         $validated = $request->validate([
             'nim' => 'required|string|max:20|unique:mahasiswas,nim',
             'nama_lengkap' => 'required|string|max:100',
-            'jurusan' => 'required|string|max:100',
+            'jurusan' => ['required', Rule::in(['Sistem Informasi','Teknik Informatika','Administrasi Bisnis','Akutansi'])],
             'tempat_lahir' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date|before:today',
             'nomor_telepon' => 'required|string|max:20',
@@ -68,7 +68,7 @@ class MahasiswaController extends Controller
         $validated = $request->validate([
             'nim' => ['required', 'string', 'max:20', Rule::unique('mahasiswas')->ignore($mahasiswa->id)],
             'nama_lengkap' => 'required|string|max:100',
-            'jurusan' => 'required|string|max:100',
+            'jurusan' => ['required', Rule::in(['Sistem Informasi','Teknik Informatika','Administrasi Bisnis','Akutansi'])],
             'tempat_lahir' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date|before:today',
             'nomor_telepon' => 'required|string|max:20',

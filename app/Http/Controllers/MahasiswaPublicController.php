@@ -31,13 +31,29 @@ class MahasiswaPublicController extends Controller
             });
         }
 
-        $mahasiswas = $query->latest()->paginate(12);
+        // paginate 6 per page so the front-end shows "Next" only when > 6
+        $mahasiswas = $query->latest()->paginate(6);
+
+        // counts per allowed jurusan and total overall
+        $jurusanList = [
+            'Sistem Informasi',
+            'Teknik Informatika',
+            'Administrasi Bisnis',
+            'Akutansi',
+        ];
+
+        $jurusanCounts = [];
+        foreach ($jurusanList as $j) {
+            $jurusanCounts[$j] = Mahasiswa::where('jurusan', $j)->count();
+        }
+
+        $total = Mahasiswa::count();
 
         if ($request->ajax()) {
             return view('public.mahasiswa._cards', compact('mahasiswas'));
         }
 
-        return view('public.mahasiswa.index', compact('mahasiswas'));
+        return view('public.mahasiswa.index', compact('mahasiswas', 'jurusanCounts', 'total'));
     }
 
     public function show(Mahasiswa $mahasiswa)

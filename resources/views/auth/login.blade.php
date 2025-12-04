@@ -42,9 +42,9 @@
                     <span class="ml-2">Remember me</span>
                 </label>
 
-                @if (Route::has('password.request'))
+                <!-- @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}" class="text-sm text-[#2b0b5a] hover:underline">Lupa kata sandi?</a>
-                @endif
+                @endif -->
             </div>
 
             <div class="pt-2">
@@ -53,7 +53,7 @@
         </form>
 
         <div class="mt-4 text-sm text-center text-gray-600">
-            Belum punya akun? <a href="{{ route('register') }}" class="text-[#2b0b5a] hover:underline">Daftar</a>
+            <!-- Belum punya akun? <a href="{{ route('register') }}" class="text-[#2b0b5a] hover:underline">Daftar</a> -->
         </div>
     </div>
 </body>

@@ -41,7 +41,13 @@
                 <!-- Jurusan -->
                 <div>
                     <label for="jurusan" class="block text-sm font-medium text-gray-700 mb-2">Jurusan <span class="text-red-500">*</span></label>
-                    <input type="text" name="jurusan" id="jurusan" value="{{ old('jurusan', $mahasiswa->jurusan) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b2fb3] @error('jurusan') border-red-500 @enderror" required>
+                    <select name="jurusan" id="jurusan" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#6b2fb3] @error('jurusan') border-red-500 @enderror" required>
+                        <option value="">-- Pilih Jurusan --</option>
+                        <option value="Sistem Informasi" {{ old('jurusan', $mahasiswa->jurusan) == 'Sistem Informasi' ? 'selected' : '' }}>Sistem Informasi</option>
+                        <option value="Teknik Informatika" {{ old('jurusan', $mahasiswa->jurusan) == 'Teknik Informatika' ? 'selected' : '' }}>Teknik Informatika</option>
+                        <option value="Administrasi Bisnis" {{ old('jurusan', $mahasiswa->jurusan) == 'Administrasi Bisnis' ? 'selected' : '' }}>Administrasi Bisnis</option>
+                        <option value="Akutansi" {{ old('jurusan', $mahasiswa->jurusan) == 'Akutansi' ? 'selected' : '' }}>Akutansi</option>
+                    </select>
                     @error('jurusan')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror

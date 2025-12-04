@@ -1,6 +1,14 @@
-# Sistem Informasi Mahasiswa
+# TUGAS 
+# SOFTWARE QUALITY ASSURANCE DAN LEGAL
+## SISTEM INFORMASI MAHASISWA INSTITUT DIGITAL EKONOMI LPKIA
 
-Dokumentasi lengkap untuk menjalankan, mengembangkan, dan men-deploy aplikasi "Sistem Informasi Biodata Mahasiswa".
+## Dokumentasi lengkap untuk menjalankan, mengembangkan, dan men-deploy aplikasi "Sistem Informasi Biodata Mahasiswa".
+
+## 🎥 Demo Aplikasi
+![Demo Aplikasi](Demo.gif)
+
+##Link Aplikasi
+https://sisteminformasimahasiswalpkia.rf.gd/
 
 Ringkasan singkat
 - Framework: Laravel (PHP)

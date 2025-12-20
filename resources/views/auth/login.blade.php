@@ -26,13 +26,26 @@
 
             <div>
                 <label for="email" class="block text-sm font-semibold text-[#2b0b5a] mb-1">Email</label>
-                <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus class="w-full px-4 py-3 rounded-lg border border-[#3b1560] focus:outline-none focus:ring-2 focus:ring-[#3b1560]" />
+                <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus
+                    placeholder="Masukkan email Anda"
+                    class="w-full px-4 py-3 rounded-lg border border-[#3b1560] focus:outline-none focus:ring-2 focus:ring-[#3b1560]" />
                 @error('email') <div class="mt-1 text-sm text-red-600">{{ $message }}</div> @enderror
             </div>
 
             <div>
                 <label for="password" class="block text-sm font-semibold text-[#2b0b5a] mb-1">Password</label>
-                <input id="password" name="password" type="password" required class="w-full px-4 py-3 rounded-lg border border-[#3b1560] focus:outline-none focus:ring-2 focus:ring-[#3b1560]" />
+
+                <div class="relative">
+                    <input id="password" name="password" type="password" required
+                        placeholder="Masukkan password"
+                        class="w-full px-4 py-3 rounded-lg border border-[#3b1560] focus:outline-none focus:ring-2 focus:ring-[#3b1560]" />
+
+                    <!-- ICON MATA -->
+                    <span class="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-600" onclick="togglePassword()">
+                        <i id="eyeIcon" class="fa-solid fa-eye"></i>
+                    </span>
+                </div>
+
                 @error('password') <div class="mt-1 text-sm text-red-600">{{ $message }}</div> @enderror
             </div>
 
@@ -41,10 +54,6 @@
                     <input type="checkbox" name="remember" class="h-4 w-4 rounded border-gray-300 text-[#2b0b5a] focus:ring-[#2b0b5a]" />
                     <span class="ml-2">Remember me</span>
                 </label>
-
-                <!-- @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}" class="text-sm text-[#2b0b5a] hover:underline">Lupa kata sandi?</a>
-                @endif -->
             </div>
 
             <div class="pt-2">
@@ -52,9 +61,24 @@
             </div>
         </form>
 
-        <div class="mt-4 text-sm text-center text-gray-600">
-            <!-- Belum punya akun? <a href="{{ route('register') }}" class="text-[#2b0b5a] hover:underline">Daftar</a> -->
-        </div>
+        <div class="mt-4 text-sm text-center text-gray-600"></div>
     </div>
+
+    <script>
+        function togglePassword() {
+            const password = document.getElementById("password");
+            const icon = document.getElementById("eyeIcon");
+
+            if (password.type === "password") {
+                password.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                password.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
 </body>
 </html>

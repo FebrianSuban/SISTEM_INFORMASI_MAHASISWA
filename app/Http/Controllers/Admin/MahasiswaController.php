@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -23,26 +24,42 @@ class MahasiswaController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nim' => 'required|string|max:20|unique:mahasiswas,nim',
-            'nama_lengkap' => 'required|string|max:100',
-            'jurusan' => ['required', Rule::in(['Sistem Informasi','Teknik Informatika','Administrasi Bisnis','Akutansi'])],
-            'tempat_lahir' => 'required|string|max:100',
-            'tanggal_lahir' => 'required|date|before:today',
-            'nomor_telepon' => 'required|string|max:20',
-            'email' => 'required|email|max:100|unique:mahasiswas,email',
-            'alamat_tinggal' => 'required|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        try {
+            $validated = $request->validate([
+                'nim' => 'required|string|max:20|unique:mahasiswas,nim',
+                'nama_lengkap' => 'required|string|max:100',
+                'jurusan' => ['required', Rule::in(['Sistem Informasi','Teknik Informatika','Administrasi Bisnis','Akutansi'])],
+                'tempat_lahir' => 'required|string|max:100',
+                'tanggal_lahir' => 'required|date|before:today',
+                'nomor_telepon' => 'required|string|max:20',
+                'email' => 'required|email|max:100|unique:mahasiswas,email',
+                'alamat_tinggal' => 'required|string',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
 
-        if ($request->hasFile('foto')) {
-            $validated['foto'] = $request->file('foto')->store('mahasiswa', 'public');
+            if ($request->hasFile('foto')) {
+                $validated['foto'] = $request->file('foto')->store('mahasiswa', 'public');
+            }
+
+            $mahasiswa = Mahasiswa::create($validated);
+
+            if (!$mahasiswa) {
+                return back()->withInput()
+                    ->with('error', 'Gagal menyimpan data mahasiswa. Silakan coba lagi.');
+            }
+
+            return redirect()->route('admin.mahasiswa.index')
+                ->with('success', 'Data mahasiswa berhasil ditambahkan.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            Log::error('Error storing mahasiswa: ' . $e->getMessage(), [
+                'exception' => $e,
+                'request_data' => $request->except(['foto', '_token'])
+            ]);
+            return back()->withInput()
+                ->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan cek log untuk detail lebih lanjut.');
         }
-
-        Mahasiswa::create($validated);
-
-        return redirect()->route('admin.mahasiswa.index')
-            ->with('success', 'Data mahasiswa berhasil ditambahkan.');
     }
 
     public function show(Mahasiswa $mahasiswa)

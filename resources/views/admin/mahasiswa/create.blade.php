@@ -15,6 +15,17 @@
             <h3 class="text-lg font-semibold text-[#2b0b5a]">Tambah Data Mahasiswa</h3>
         </div>
 
+        @if($errors->any())
+            <div class="mx-6 mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Terjadi kesalahan!</strong>
+                <ul class="mt-2 list-disc list-inside">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('admin.mahasiswa.store') }}" method="POST" enctype="multipart/form-data" class="p-6">
             @csrf
 

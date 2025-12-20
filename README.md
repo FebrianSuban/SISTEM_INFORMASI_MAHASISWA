@@ -14,6 +14,10 @@ https://sisteminformasimahasiswalpkia.rf.gd/
 
 ![Sistem Informasi Mahasiswa](https://raw.githubusercontent.com/FebrianSuban/SISTEM_INFORMASI_MAHASISWA/main/Screenshot%202025-12-20%20140159.png)
 
+![Sistem Informasi Mahasiswa](https://raw.githubusercontent.com/FebrianSuban/SISTEM_INFORMASI_MAHASISWA/main/Screenshot%202025-12-20%20140208.png)
+
+
+
 
 Ringkasan singkat
 - Framework: Laravel (PHP)

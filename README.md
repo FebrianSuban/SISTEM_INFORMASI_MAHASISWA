@@ -10,7 +10,7 @@
 ##Link Aplikasi
 https://sisteminformasimahasiswalpkia.rf.gd/
 
-## Tampilan Aplikasi
+## Hasil Test
 
 ![Sistem Informasi Mahasiswa](https://raw.githubusercontent.com/FebrianSuban/SISTEM_INFORMASI_MAHASISWA/main/Screenshot%202025-12-20%20140159.png)
 

@@ -10,6 +10,9 @@
 ##Link Aplikasi
 https://sisteminformasimahasiswalpkia.rf.gd/
 
+#Hasil TEST
+https://github.com/FebrianSuban/SISTEM_INFORMASI_MAHASISWA/blob/main/Screenshot%202025-12-20%20140159.png
+
 Ringkasan singkat
 - Framework: Laravel (PHP)
 - Frontend: Blade + Tailwind CSS

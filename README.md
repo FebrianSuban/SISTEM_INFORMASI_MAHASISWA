@@ -4,21 +4,6 @@
 
 ## Dokumentasi lengkap untuk menjalankan, mengembangkan, dan men-deploy aplikasi "Sistem Informasi Biodata Mahasiswa".
 
-## 🎥 Demo Aplikasi
-![Demo Aplikasi](Demo.gif)
-
-##Link Aplikasi
-https://sisteminformasimahasiswalpkia.rf.gd/
-
-## Hasil Test
-
-![Sistem Informasi Mahasiswa](https://raw.githubusercontent.com/FebrianSuban/SISTEM_INFORMASI_MAHASISWA/main/Screenshot%202025-12-20%20140159.png)
-
-![Sistem Informasi Mahasiswa](https://raw.githubusercontent.com/FebrianSuban/SISTEM_INFORMASI_MAHASISWA/main/Screenshot%202025-12-20%20140208.png)
-
-
-
-
 Ringkasan singkat
 - Framework: Laravel (PHP)
 - Frontend: Blade + Tailwind CSS
